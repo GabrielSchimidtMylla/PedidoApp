@@ -5,10 +5,9 @@ angular.module('starter.controllers', [])
 
 homeController.$inject = ["ProdutoService"];
 detalheController.$inject = ["ProdutoService", "$stateParams"];
-pedidoController.$inject = ["ProdutoService", "$stateParams", "$http"];
+pedidoController.$inject = ["ProdutoService", "$stateParams", "$http", "$ionicLoading", "$state", "$ionicPopup"];
 
-function homeController(ProdutoService)
-{
+function homeController(ProdutoService) {
     var vm = this;
 
     ProdutoService.lista().then(function (retorno) {
@@ -16,8 +15,7 @@ function homeController(ProdutoService)
     })
 }
 
-function detalheController(ProdutoService, $stateParams)
-{
+function detalheController(ProdutoService, $stateParams) {
     var vm = this;
 
     ProdutoService.lista().then(function (retorno) {
@@ -25,8 +23,7 @@ function detalheController(ProdutoService, $stateParams)
     })
 }
 
-function pedidoController(ProdutoService, $stateParams, $http)
-{
+function pedidoController(ProdutoService, $stateParams, $http, $ionicLoading, $state, $ionicPopup) {
     var vm = this;
 
     ProdutoService.lista().then(function (retorno) {
@@ -36,12 +33,31 @@ function pedidoController(ProdutoService, $stateParams, $http)
     vm.dados = {};
 
     vm.fecharPedido = function () {
-        $http.get('http://cozinhapp.sergiolopes.org/novo-pedido',
-            {
-                params: {
-                    pedido: vm.bolo.nome,
-                    info: vm.dados.nome + ' (' + vm.dados.telefone + ') - ' + vm.dados.endereco
-                }
+
+        $ionicLoading.show();
+
+        $http.get('http://cozinhapp.sergiolopes.org/novo-pedido', {
+            params: {
+                pedido: vm.bolo.nome,
+                info: vm.dados.nome + ' (' + vm.dados.telefone + ') - ' + vm.dados.endereco
+            }
+        }).then(function () {
+
+            $ionicPopup.alert({
+                title: "Pedido Confirmado!",
+                template: "Daqui a pouco chega! :)"
+            }).then(function () {
+                $state.go("home");
             });
+
+        }).catch(function (error) {
+
+            $ionicPopup.alert({
+                title: "Error no pedido!",
+                template: error.data + ". Ligue pra gente: 011-1406"
+            });
+        }).finally(function () {
+            $ionicLoading.hide();
+        });
     }
 }
