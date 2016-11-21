@@ -19,6 +19,15 @@
     {
       "platform": "android",
       "locator": "browser"
-    }
+    },
+    {
+      "platform": "android",
+      "locator": "windows"
+    },
+    {
+      "platform": "android",
+      "locator": "windows"
+    },
+    "android"
   ]
 }
