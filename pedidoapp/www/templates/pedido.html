@@ -1,0 +1,22 @@
+﻿<ion-view>
+    <ion-nav-title>Seu pedido</ion-nav-title>
+    <ion-content>
+        <div class="list list-inset">
+            <div class="item item-divider">Bolo escolhido</div>
+            <div class="item">{{vm.bolo.nome}} por R${{vm.bolo.preco}}</div>
+        </div>
+        <div class="list list-inset">
+            <div class="item item-divider">Dados para entrega</div>
+            <label class="item item-input">
+                <input type="text" placeholder="Seu nome" ng-model="vm.dados.nome">
+            </label>
+            <label class="item item-input">
+                <input type="tel" placeholder="Telefone" ng-model="vm.dados.telefone">
+            </label>
+            <label class="item item-input">
+                <textarea placeholder="Endereço" ng-model="vm.dados.endereco"></textarea>
+            </label>
+            <button class="button button-positive button-full" ng-click="vm.fecharPedido()">Confirmar Pedido!</button>
+        </div>
+    </ion-content>
+</ion-view>

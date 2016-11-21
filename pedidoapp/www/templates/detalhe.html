@@ -1,0 +1,10 @@
+﻿<ion-view>
+    <ion-nav-title>{{vm.bolo.nome}}</ion-nav-title>
+    <ion-content>
+        <img ng-src="{{vm.bolo.foto}}" class="detalhe-foto" />
+        <p class="detalhe-descricao">{{vm.bolo.descricao}}</p>
+        <a class="button button-positive button-full" href="#/pedido/{{vm.bolo.id}}">
+            Pedir esse bolo agora
+        </a>
+    </ion-content>
+</ion-view>
